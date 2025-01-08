@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E6BC1A10-FE2F-4D80-9967-A376D524D7D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2B7F8B3A-D706-40EC-B73E-510463CDE4F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{889182BE-C1CC-4B59-B9E4-9B45FBDADB4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrapper", "Bootstrapper", "{99BF47F4-96A5-4B88-A8FD-2B6E0D7CA4E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{49056945-0C3A-4E87-89BC-3F1F02D28D3D}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{889182BE-C1CC-4B59-B9E4-9B45FBDADB4C} = {E6BC1A10-FE2F-4D80-9967-A376D524D7D4}
+		{99BF47F4-96A5-4B88-A8FD-2B6E0D7CA4E8} = {E6BC1A10-FE2F-4D80-9967-A376D524D7D4}
+		{49056945-0C3A-4E87-89BC-3F1F02D28D3D} = {E6BC1A10-FE2F-4D80-9967-A376D524D7D4}
+	EndGlobalSection
+EndGlobal
