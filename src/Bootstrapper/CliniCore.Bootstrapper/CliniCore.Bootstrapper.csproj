@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Modules\Appointments\CliniCore.Modules.Appointments.Shell\CliniCore.Modules.Appointments.Shell.csproj" />
+		<ProjectReference Include="..\..\Modules\Availability\CliniCore.Modules.Availability.Api\CliniCore.Modules.Availability.Api.csproj" />
+		<ProjectReference Include="..\..\Modules\Bookings\CliniCore.Modules.Bookings.Api\CliniCore.Modules.Bookings.Api.csproj" />
+		<ProjectReference Include="..\..\Modules\Confirmations\CliniCore.Modules.Confirmations.Api\CliniCore.Modules.Confirmations.Api.csproj" />
+		<ProjectReference Include="..\..\Shared\CliniCore.Shared\CliniCore.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="CliniCore.Tests.Shared" />
+		<InternalsVisibleTo Include="CliniCore.Tests.Availability" />
+		<InternalsVisibleTo Include="CliniCore.Tests.Appointments" />
+		<InternalsVisibleTo Include="CliniCore.Tests.Confirmations" />
+		<InternalsVisibleTo Include="CliniCore.Tests.Bookings" />
+	</ItemGroup>
+	
+</Project>

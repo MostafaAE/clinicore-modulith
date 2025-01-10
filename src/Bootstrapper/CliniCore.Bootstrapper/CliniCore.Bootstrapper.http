@@ -1,0 +1,6 @@
+@CliniCore.Bootstrapper_HostAddress = http://localhost:5127
+
+GET {{CliniCore.Bootstrapper_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

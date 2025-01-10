@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CliniCore.Modules.Bookings.Application\CliniCore.Modules.Bookings.Application.csproj" />
+    <ProjectReference Include="..\CliniCore.Modules.Bookings.Infrastructure\CliniCore.Modules.Bookings.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
