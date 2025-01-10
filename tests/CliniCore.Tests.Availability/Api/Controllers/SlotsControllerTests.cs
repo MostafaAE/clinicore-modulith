@@ -47,4 +47,34 @@ public class SlotsControllerTests : IClassFixture<CustomWebApplicationFactory>, 
         result.Should().NotBeNull().And.HaveCount(slots.Count);
     }
 
+
+    [Fact]
+    public async Task GetSlotById_ShouldReturnOkWithSlot_WhenSlotExists()
+    {
+        // Arrange
+        var slot = _fixture.Create<SlotEntity>();
+        await TestUtils.AddToDatabaseAsync<AvailabilityDbContext,SlotEntity>(_factory, slot);
+
+        // Act
+        var response = await _httpClient.GetAsync($"/api/v1/Slots/{slot.Id}");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var result = await response.Content.ReadFromJsonAsync<SlotDto>();
+        result.Should().NotBeNull();
+        result.Id.Should().Be(slot.Id);
+    }
+
+    [Fact]
+    public async Task GetSlotById_ShouldReturnNotFound_WhenSlotDoesNotExist()
+    {
+        // Arrange
+        var nonExistentSlotId = Guid.NewGuid();
+
+        // Act
+        var response = await _httpClient.GetAsync($"/api/v1/Slots/{nonExistentSlotId}");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
 }

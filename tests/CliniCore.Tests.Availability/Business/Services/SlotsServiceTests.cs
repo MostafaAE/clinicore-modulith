@@ -47,6 +47,37 @@ namespace CliniCore.Modules.Availability.Tests.Business.Services
             _mockSlotRepository.Verify(r => r.GetAllSlotsAsync(), Times.Once);
         }
 
-        
+
+        [Fact]
+        public async Task GetSlotByIdAsync_ShouldReturnMappedSlot_WhenSlotExists()
+        {
+            // Arrange
+            var slotId = Guid.NewGuid();
+            var slotEntity = _fixture.Create<SlotEntity>();
+            var slotDto = _fixture.Create<SlotDto>();
+
+            _mockSlotRepository.Setup(r => r.GetSlotByIdAsync(slotId)).ReturnsAsync(slotEntity);
+            _mockSlotsMapper.Setup(m => m.MapToDto(slotEntity)).Returns(slotDto);
+
+            // Act
+            var result = await _slotsService.GetSlotByIdAsync(slotId);
+
+            // Assert
+            result.Should().BeEquivalentTo(slotDto);
+            _mockSlotRepository.Verify(r => r.GetSlotByIdAsync(slotId), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetSlotByIdAsync_ShouldThrowSlotNotFoundException_WhenSlotDoesNotExist()
+        {
+            // Arrange
+            var slotId = Guid.NewGuid();
+            _mockSlotRepository.Setup(r => r.GetSlotByIdAsync(slotId)).ReturnsAsync((SlotEntity)null);
+
+            // Act & Assert
+            await _slotsService.Invoking(slotService => slotService.GetSlotByIdAsync(slotId))
+                .Should().ThrowAsync<SlotNotFoundException>();
+            _mockSlotRepository.Verify(r => r.GetSlotByIdAsync(slotId), Times.Once);
+        }
     }
 }
