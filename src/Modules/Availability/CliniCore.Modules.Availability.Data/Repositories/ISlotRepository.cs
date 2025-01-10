@@ -5,5 +5,6 @@ public interface ISlotRepository
 {
     Task<IEnumerable<SlotEntity>> GetAllSlotsAsync();
 
+    Task<Guid> AddSlotAsync(SlotEntity slot);
     Task<SlotEntity> GetSlotByIdAsync(Guid id);
 }

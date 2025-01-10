@@ -32,4 +32,13 @@ public class SlotsController : ControllerBase
         var result = await _slotsService.GetSlotByIdAsync(id);
         return Ok(result);
     }
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> AddSlot([FromBody] AddSlotDto addSlotDto)
+    {
+        var result = await _slotsService.AddSlotAsync(addSlotDto);
+        return CreatedAtAction(nameof(GetSlotById), new { id = result }, null);
+    }
 }

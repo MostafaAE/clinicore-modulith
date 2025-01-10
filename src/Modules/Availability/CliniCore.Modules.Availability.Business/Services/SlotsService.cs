@@ -40,4 +40,20 @@ public class SlotsService
         return slotDto;
     }
 
+    public async Task<Guid> AddSlotAsync(AddSlotDto addSlotDto)
+    {
+        if(addSlotDto.Time < _clock.CurrentDate())
+        {
+            throw new InvalidSlotTimeException();
+        }
+
+        if(addSlotDto.Cost <= 0)
+        {
+            throw new InvalidSlotCostException();
+        }
+
+        var slotEntity = _slotsMapper.MapFrom(addSlotDto);
+
+        return await _slotRepository.AddSlotAsync(slotEntity);
+    }
 }
