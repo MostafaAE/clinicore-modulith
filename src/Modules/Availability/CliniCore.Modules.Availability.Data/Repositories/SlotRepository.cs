@@ -21,4 +21,9 @@ public class SlotRepository : ISlotRepository
         return slots;
     }
 
+    public async Task<SlotEntity> GetSlotByIdAsync(Guid id)
+    {
+        var slot = await _context.Slots.FindAsync(id);
+        return slot;
+    }
 }

@@ -24,4 +24,12 @@ public class SlotsController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("{id:guid:required}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetSlotById([FromRoute] Guid id)
+    {
+        var result = await _slotsService.GetSlotByIdAsync(id);
+        return Ok(result);
+    }
 }
