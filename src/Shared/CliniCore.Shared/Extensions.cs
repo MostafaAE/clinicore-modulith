@@ -1,6 +1,7 @@
 ﻿using CliniCore.Shared.Events;
 using CliniCore.Shared.Exceptions;
 using CliniCore.Shared.Messaging;
+using CliniCore.Shared.Time;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ public static class Extensions
     {
         services.AddEvents();
         services.AddMessaging();
+        services.AddSingleton<IClock, UtcClock>();
         return services;
     }
 
