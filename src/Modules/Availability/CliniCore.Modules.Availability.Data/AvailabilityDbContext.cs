@@ -1,11 +1,11 @@
-﻿using CliniCore.Modules.Availability.Data.Models;
+﻿using CliniCore.Modules.Availability.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace CliniCore.Modules.Availability.Data;
 public class AvailabilityDbContext : DbContext
 {
-    public DbSet<Slot> Slots { get; set; }
+    public DbSet<SlotEntity> Slots { get; set; }
 
     public AvailabilityDbContext(DbContextOptions<AvailabilityDbContext> options)
         : base(options) { }
