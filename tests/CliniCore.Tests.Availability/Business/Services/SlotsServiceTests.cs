@@ -79,5 +79,65 @@ namespace CliniCore.Modules.Availability.Tests.Business.Services
                 .Should().ThrowAsync<SlotNotFoundException>();
             _mockSlotRepository.Verify(r => r.GetSlotByIdAsync(slotId), Times.Once);
         }
+
+        [Fact]
+        public async Task AddSlotAsync_WithValidSlot_ShouldReturnSlotId()
+        {
+            // Arrange
+            var addSlotDto = _fixture.Build<AddSlotDto>()
+                         .With(dto => dto.Time, DateTime.UtcNow.AddDays(1))
+                         .With(dto => dto.Cost, 100)
+                         .Create();
+            var slotEntity = _fixture.Build<SlotEntity>()
+                         .With(dto => dto.Time, DateTime.UtcNow.AddDays(1))
+                         .With(dto => dto.Cost, 100)
+                         .Create();
+            var slotId = Guid.NewGuid();
+
+            _mockClock.Setup(c => c.CurrentDate()).Returns(DateTime.UtcNow);
+            _mockSlotsMapper.Setup(m => m.MapFrom(addSlotDto)).Returns(slotEntity);
+            _mockSlotRepository.Setup(r => r.AddSlotAsync(slotEntity)).ReturnsAsync(slotId);
+
+            // Act
+            var result = await _slotsService.AddSlotAsync(addSlotDto);
+
+            // Assert
+            result.Should().Be(slotId);
+            _mockSlotRepository.Verify(r => r.AddSlotAsync(slotEntity), Times.Once);
+        }
+
+        [Fact]
+        public async Task AddSlotAsync_ShouldThrowInvalidSlotTimeException_WithPastSlotTime()
+        {
+            // Arrange
+            var addSlotDto = _fixture.Build<AddSlotDto>()
+                         .With(dto => dto.Time, DateTime.UtcNow.AddDays(-1))
+                         .With(dto => dto.Cost, 100)
+                         .Create();
+
+            _mockClock.Setup(c => c.CurrentDate()).Returns(DateTime.UtcNow);
+
+            // Act & Assert
+            await _slotsService.Invoking(slotService => slotService.AddSlotAsync(addSlotDto))
+                .Should().ThrowAsync<InvalidSlotTimeException>();
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public async Task AddSlotAsync_ShouldThrowInvalidSlotCostException_WhenCostIsInvalid(decimal invalidCost)
+        {
+            // Arrange
+            var addSlotDto = _fixture.Build<AddSlotDto>()
+                         .With(dto => dto.Time, DateTime.UtcNow.AddDays(1))
+                         .With(dto => dto.Cost, invalidCost)
+                         .Create();
+
+            _mockClock.Setup(c => c.CurrentDate()).Returns(DateTime.UtcNow);
+
+            // Act & Assert
+            await _slotsService.Invoking(slotService => slotService.AddSlotAsync(addSlotDto))
+                .Should().ThrowAsync<InvalidSlotCostException>();
+        }
     }
 }

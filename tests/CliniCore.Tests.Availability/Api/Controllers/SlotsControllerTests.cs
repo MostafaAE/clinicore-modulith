@@ -77,4 +77,54 @@ public class SlotsControllerTests : IClassFixture<CustomWebApplicationFactory>, 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
+
+    [Fact]
+    public async Task AddSlot_ShouldReturnCreated_WhenValidSlotIsProvided()
+    {
+        // Arrange
+        var addSlotDto = _fixture.Build<AddSlotDto>()
+                                 .With(dto => dto.Time, DateTime.UtcNow.AddDays(1))
+                                 .With(dto => dto.Cost, 100)
+                                 .Create();
+
+        // Act
+        var response = await _httpClient.PostAsJsonAsync("/api/v1/Slots", addSlotDto);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
+
+    [Fact]
+    public async Task AddSlot_ShouldReturnBadRequest_WhenSlotTimeIsInvalid()
+    {
+        // Arrange
+        var addSlotDto = _fixture.Build<AddSlotDto>()
+                                 .With(dto => dto.Time, DateTime.UtcNow.AddDays(-1)) // Invalid time
+                                 .With(dto => dto.Cost, 100)
+                                 .Create();
+
+        // Act
+        var response = await _httpClient.PostAsJsonAsync("/api/v1/Slots", addSlotDto);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public async Task AddSlot_ShouldReturnBadRequest_WhenSlotCostIsInvalid(decimal cost)
+    {
+        // Arrange
+        var addSlotDto = _fixture.Build<AddSlotDto>()
+                                 .With(dto => dto.Time, DateTime.UtcNow.AddDays(1))
+                                 .With(dto => dto.Cost, cost)
+                                 .Create();
+
+        // Act
+        var response = await _httpClient.PostAsJsonAsync("/api/v1/Slots", addSlotDto);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
 }
