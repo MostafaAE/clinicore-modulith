@@ -27,6 +27,15 @@ public class SlotsService
 
         return slotDtos;
     }
+    
+    public async Task<IEnumerable<SlotDto>> GetAvailableSlotsAsync()
+    {
+        var slotEntities = await _slotRepository.GetAvailableSlotsAsync();
+
+        var slotDtos = _slotsMapper.MapToDto(slotEntities);
+
+        return slotDtos;
+    }
 
     public async Task<SlotDto> GetSlotByIdAsync(Guid id)
     {

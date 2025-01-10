@@ -21,6 +21,18 @@ public class SlotRepository : ISlotRepository
         return slots;
     }
 
+    public async Task<IEnumerable<SlotEntity>> GetAvailableSlotsAsync()
+    {
+        // Assume that available slots have the following criteria
+        // IsReserved = false & Time >= now
+        var slots =
+                    await _context.Slots
+                                  .Where(slot => slot.IsReserved == false &&
+                                                 slot.Time >= _clock.CurrentDate())
+                                  .ToListAsync();
+
+        return slots;
+    }
 
     public async Task<Guid> AddSlotAsync(SlotEntity slot)
     {
