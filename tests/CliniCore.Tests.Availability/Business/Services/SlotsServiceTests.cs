@@ -47,6 +47,26 @@ namespace CliniCore.Modules.Availability.Tests.Business.Services
             _mockSlotRepository.Verify(r => r.GetAllSlotsAsync(), Times.Once);
         }
 
+        [Fact]
+        public async Task GetAvailableSlotsAsync_ShouldReturnMappedAvailableSlots()
+        {
+            // Arrange
+            var slotEntities = _fixture.CreateMany<SlotEntity>();
+            var slotDtos = _fixture.Build<SlotDto>()
+                         .With(dto => dto.IsReserved, false)
+                         .CreateMany();
+
+            _mockSlotRepository.Setup(r => r.GetAvailableSlotsAsync()).ReturnsAsync(slotEntities);
+            _mockSlotsMapper.Setup(m => m.MapToDto(slotEntities)).Returns(slotDtos);
+
+            // Act
+            var result = await _slotsService.GetAvailableSlotsAsync();
+
+            // Assert
+            result.Should().BeEquivalentTo(slotDtos);
+            result.Should().AllSatisfy(x => x.IsReserved.Should().BeFalse());
+            _mockSlotRepository.Verify(r => r.GetAvailableSlotsAsync(), Times.Once);
+        }
 
         [Fact]
         public async Task GetSlotByIdAsync_ShouldReturnMappedSlot_WhenSlotExists()
