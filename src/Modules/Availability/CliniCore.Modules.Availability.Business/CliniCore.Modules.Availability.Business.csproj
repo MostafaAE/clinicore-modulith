@@ -28,6 +28,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="CliniCore.Tests.Availability" />
+		<InternalsVisibleTo Include="CliniCore.Tests.Bookings" />
 	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using CliniCore.Modules.Availability.Shared.DTO;
 
 namespace CliniCore.Modules.Availability.Shared;
-public interface ISlotsModuleApi
+public interface IAvailabilityModuleApi
 {
     Task<IEnumerable<SlotDto>> GetAvailableSlotsAsync();
 

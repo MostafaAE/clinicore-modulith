@@ -8,16 +8,18 @@ using CliniCore.Tests.Shared.Utils;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 
+namespace CliniCore.Tests.Availability.Business.Services;
+
 public class SlotsModuleApiTests : IClassFixture<CustomWebApplicationFactory>, IAsyncLifetime
 {
     private readonly CustomWebApplicationFactory _factory;
-    private readonly ISlotsModuleApi _slotsModuleApi;
+    private readonly IAvailabilityModuleApi _slotsModuleApi;
     private readonly IFixture _fixture;
 
     public SlotsModuleApiTests(CustomWebApplicationFactory factory)
     {
         _factory = factory;
-        _slotsModuleApi = factory.Services.GetRequiredService<ISlotsModuleApi>();
+        _slotsModuleApi = factory.Services.GetRequiredService<IAvailabilityModuleApi>();
         _fixture = new Fixture();
     }
 
