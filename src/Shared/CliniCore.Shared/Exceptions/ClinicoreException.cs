@@ -1,5 +1,5 @@
 ﻿namespace CliniCore.Shared.Exceptions;
-public sealed class ClinicoreException : Exception
+public abstract class ClinicoreException : Exception
 {
     public int StatusCode { get; set; } = 500; // Default status code
 

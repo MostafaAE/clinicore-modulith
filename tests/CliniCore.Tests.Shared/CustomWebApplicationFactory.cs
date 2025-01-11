@@ -1,5 +1,4 @@
-﻿using CliniCore.Modules.Appointments.Shell;
-using CliniCore.Modules.Availability.Data;
+﻿using CliniCore.Modules.Availability.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -43,11 +42,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private void AddInMemoryDbContexts(IServiceCollection services)
     {
         services.AddDbContext<AvailabilityDbContext>(options =>
-        {
-            options.UseInMemoryDatabase(databaseName);
-        });
-
-        services.AddDbContext<AppointmentsDbContext>(options =>
         {
             options.UseInMemoryDatabase(databaseName);
         });
