@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Bookings\CliniCore.Modules.Bookings.Shared\CliniCore.Modules.Bookings.Shared.csproj" />
     <ProjectReference Include="..\CliniCore.Modules.Availability.Data\CliniCore.Modules.Availability.Data.csproj" />
     <ProjectReference Include="..\CliniCore.Modules.Availability.Shared\CliniCore.Modules.Availability.Shared.csproj" />
   </ItemGroup>

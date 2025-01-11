@@ -65,4 +65,18 @@ public class SlotsService
 
         return await _slotRepository.AddSlotAsync(slotEntity);
     }
+
+    public async Task ReserveSlotAsync(Guid id)
+    {
+        var slotEntity = await _slotRepository.GetSlotByIdAsync(id);
+
+        if (slotEntity is null)
+            throw new SlotNotFoundException();
+
+        if(slotEntity.IsReserved == true)
+            throw new SlotAlreadyReservedException();
+
+        slotEntity.IsReserved = true;
+        await _slotRepository.UpdateSlotAsync(slotEntity);
+    }
 }

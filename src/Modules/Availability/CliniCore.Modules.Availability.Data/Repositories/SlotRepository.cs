@@ -47,4 +47,10 @@ public class SlotRepository : ISlotRepository
         var slot = await _context.Slots.FindAsync(id);
         return slot;
     }
+
+    public async Task UpdateSlotAsync(SlotEntity slot)
+    {
+        _context.Slots.Update(slot);
+        await _context.SaveChangesAsync();
+    }
 }

@@ -79,6 +79,15 @@ namespace CliniCore.Modules.Availability.Business.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This slot has been already reserved..
+        /// </summary>
+        internal static string SlotAlreadyReserved {
+            get {
+                return ResourceManager.GetString("SlotAlreadyReserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slot not found..
         /// </summary>
         internal static string SlotNotFound {

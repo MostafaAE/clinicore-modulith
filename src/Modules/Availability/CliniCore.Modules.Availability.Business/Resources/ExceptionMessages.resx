@@ -123,6 +123,9 @@
   <data name="InvalidTime" xml:space="preserve">
     <value>Time must be in the future.</value>
   </data>
+  <data name="SlotAlreadyReserved" xml:space="preserve">
+    <value>This slot has been already reserved.</value>
+  </data>
   <data name="SlotNotFound" xml:space="preserve">
     <value>Slot not found.</value>
   </data>
