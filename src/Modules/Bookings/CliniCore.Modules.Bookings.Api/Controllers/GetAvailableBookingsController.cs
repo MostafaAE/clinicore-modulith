@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CliniCore.Modules.Bookings.Api.Controllers;
 
-[Route("api/v1/AvailableBookings")]
+[Route("api/v1/Bookings")]
 [ApiController]
 public class GetAvailableBookingsController : ControllerBase
 {
@@ -14,7 +14,7 @@ public class GetAvailableBookingsController : ControllerBase
         _getAvailableBookingHandler = getAvailableBookingHandler;
     }
 
-    [HttpGet]
+    [HttpGet("Available")]
     public async Task<IActionResult> GetAvailableBookings()
     {
         var availableBookings = await _getAvailableBookingHandler.Handle();
