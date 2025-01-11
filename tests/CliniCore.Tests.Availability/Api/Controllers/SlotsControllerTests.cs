@@ -9,7 +9,7 @@ using CliniCore.Tests.Shared;
 using FluentAssertions;
 using CliniCore.Modules.Availability.Data;
 
-namespace CliniCore.Modules.Availability.Tests.Integration.Controllers;
+namespace CliniCore.Tests.Availability.Api.Controllers;
 
 public class SlotsControllerTests : IClassFixture<CustomWebApplicationFactory>, IAsyncLifetime
 {
@@ -53,7 +53,7 @@ public class SlotsControllerTests : IClassFixture<CustomWebApplicationFactory>, 
     {
         // Arrange
         var slot = _fixture.Create<SlotEntity>();
-        await TestUtils.AddToDatabaseAsync<AvailabilityDbContext,SlotEntity>(_factory, slot);
+        await TestUtils.AddToDatabaseAsync<AvailabilityDbContext, SlotEntity>(_factory, slot);
 
         // Act
         var response = await _httpClient.GetAsync($"/api/v1/Slots/{slot.Id}");

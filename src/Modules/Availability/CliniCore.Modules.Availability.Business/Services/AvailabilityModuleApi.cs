@@ -2,11 +2,11 @@
 using CliniCore.Modules.Availability.Shared.DTO;
 
 namespace CliniCore.Modules.Availability.Business.Services;
-internal class SlotsModuleApi : ISlotsModuleApi
+internal class AvailabilityModuleApi : IAvailabilityModuleApi
 {
     private readonly SlotsService _slotsService;
 
-    public SlotsModuleApi(SlotsService slotsService)
+    public AvailabilityModuleApi(SlotsService slotsService)
     {
         _slotsService = slotsService;
     }

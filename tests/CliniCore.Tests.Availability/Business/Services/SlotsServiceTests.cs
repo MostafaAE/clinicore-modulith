@@ -10,7 +10,7 @@ using CliniCore.Shared.Time;
 using FluentAssertions;
 using Moq;
 
-namespace CliniCore.Modules.Availability.Tests.Business.Services
+namespace CliniCore.Tests.Availability.Business.Services
 {
     public class SlotsServiceTests
     {

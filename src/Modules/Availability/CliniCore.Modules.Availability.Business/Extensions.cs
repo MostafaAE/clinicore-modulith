@@ -11,7 +11,7 @@ public static class Extensions
     {
         services.AddScoped<SlotsService>();
         services.AddScoped<ISlotsMapper, SlotsMapper>();
-        services.AddScoped<ISlotsModuleApi, SlotsModuleApi>();
+        services.AddScoped<IAvailabilityModuleApi, AvailabilityModuleApi>();
 
         return services;
     }
