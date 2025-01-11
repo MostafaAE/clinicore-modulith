@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
+using CliniCore.Modules.Availability.Business.EventHandlers.Booking;
 using CliniCore.Modules.Availability.Business.Exceptions;
 using CliniCore.Modules.Availability.Business.Services;
-using CliniCore.Modules.Availability.Business.Services.EventHandlers;
 using CliniCore.Modules.Availability.Data;
 using CliniCore.Modules.Availability.Data.Entities;
 using CliniCore.Modules.Bookings.Shared;
@@ -10,7 +10,7 @@ using CliniCore.Tests.Shared.Utils;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CliniCore.Tests.Availability.Business.Services.EventHandlers;
+namespace CliniCore.Tests.Availability.Business.Services.EventHandlers.Booking;
 public class AppointmentBookedEventHandlerTests : IClassFixture<CustomWebApplicationFactory>, IAsyncLifetime
 {
     private readonly CustomWebApplicationFactory _factory;

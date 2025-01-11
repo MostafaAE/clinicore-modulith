@@ -1,7 +1,8 @@
-﻿using CliniCore.Modules.Bookings.Shared;
+﻿using CliniCore.Modules.Availability.Business.Services;
+using CliniCore.Modules.Bookings.Shared;
 using CliniCore.Shared.Events;
 
-namespace CliniCore.Modules.Availability.Business.Services.EventHandlers;
+namespace CliniCore.Modules.Availability.Business.EventHandlers.Booking;
 internal class AppointmentBookedEventHandler : IEventHandler<AppointmentBookedDto>
 {
     private readonly SlotsService _slotsService;
