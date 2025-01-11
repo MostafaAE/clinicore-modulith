@@ -8,7 +8,7 @@ namespace CliniCore.Tests.Shared;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private readonly string databaseName = "fixed";
+    private readonly string databaseName = Guid.NewGuid().ToString();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
