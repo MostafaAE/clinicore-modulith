@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddAvailabiliyModule(builder.Configuration)
-    .AddBookingsModule()
+    .AddBookingsModule(builder.Configuration)
     .AddAppointmentsModule(builder.Configuration)
     .AddConfirmationsModule()
     .AddSharedFramework(builder.Configuration);
