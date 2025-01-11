@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CliniCore.Modules.Bookings.Application\CliniCore.Modules.Bookings.Application.csproj" />
+    <ProjectReference Include="..\CliniCore.Modules.Bookings.Shared\CliniCore.Modules.Bookings.Shared.csproj" />
   </ItemGroup>
 
 </Project>

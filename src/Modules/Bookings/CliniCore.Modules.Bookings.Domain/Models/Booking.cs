@@ -9,8 +9,8 @@ public class Booking
     public Guid PatientId { get; private set; }
     public string PatientName { get; private set; }
     public DateTime ReservedAt { get; private set; }
-    private readonly List<IEvent> _domainEvents = new();
-    public IReadOnlyList<IEvent> DomainEvents => _domainEvents.AsReadOnly();
+    private readonly List<IBookingEvent> _domainEvents = new();
+    public IReadOnlyList<IBookingEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     private Booking(Guid id, Guid slotId, Guid patientId, string patientName, DateTime reservedAt)
     {
@@ -33,7 +33,7 @@ public class Booking
         PatientName = patientName;
         ReservedAt = reservedAt;
     }
-    private void AddDomainEvent(IEvent domainEvent)
+    private void AddDomainEvent(IBookingEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
     }

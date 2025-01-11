@@ -61,6 +61,15 @@ namespace CliniCore.Modules.Bookings.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This slot has been already booked..
+        /// </summary>
+        internal static string AlreadyBookedSlot {
+            get {
+                return ResourceManager.GetString("AlreadyBookedSlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid patient id..
         /// </summary>
         internal static string InvalidPatientId {
