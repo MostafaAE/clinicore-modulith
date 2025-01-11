@@ -5,7 +5,7 @@ using System.Reflection;
 namespace CliniCore.Modules.Bookings.Infrastructure.DAL;
 public class BookingDbContext : DbContext
 {
-
+    public DbSet<BookingEntity> Bookings { get; set; }
     public BookingDbContext(DbContextOptions<BookingDbContext> options) 
         : base(options){ }
 
