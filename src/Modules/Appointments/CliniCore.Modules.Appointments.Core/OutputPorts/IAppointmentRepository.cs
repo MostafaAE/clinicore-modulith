@@ -5,4 +5,6 @@ namespace CliniCore.Modules.Appointments.Core.OutputPorts;
 public interface IAppointmentRepository
 {
     Task<Guid> AddAppointmentAsync(Appointment appointment);
+
+    Task<IEnumerable<Appointment>> GetUpcomingAppointmentsAsync();
 }
