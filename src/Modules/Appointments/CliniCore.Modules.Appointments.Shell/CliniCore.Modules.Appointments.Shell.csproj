@@ -23,7 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="EventHandlers\" />
   </ItemGroup>
-
+	<ItemGroup>
+		<InternalsVisibleTo Include="CliniCore.Tests.Appointments" />
+	</ItemGroup>
 </Project>
