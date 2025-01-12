@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="OutputPorts\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\CliniCore.Shared\CliniCore.Shared.csproj" />
   </ItemGroup>
 

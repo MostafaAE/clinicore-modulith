@@ -20,10 +20,6 @@
     <ProjectReference Include="..\..\Bookings\CliniCore.Modules.Bookings.Shared\CliniCore.Modules.Bookings.Shared.csproj" />
     <ProjectReference Include="..\CliniCore.Modules.Appointments.Core\CliniCore.Modules.Appointments.Core.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="CliniCore.Tests.Appointments" />
 	</ItemGroup>

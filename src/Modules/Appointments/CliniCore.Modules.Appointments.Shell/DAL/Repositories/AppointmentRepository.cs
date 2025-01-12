@@ -1,5 +1,5 @@
-﻿using CliniCore.Modules.Appointments.Core.InputPorts;
-using CliniCore.Modules.Appointments.Core.Models;
+﻿using CliniCore.Modules.Appointments.Core.Models;
+using CliniCore.Modules.Appointments.Core.OutputPorts;
 using CliniCore.Modules.Appointments.Shell.DAL.Entities;
 
 namespace CliniCore.Modules.Appointments.Shell.DAL.Repositories;

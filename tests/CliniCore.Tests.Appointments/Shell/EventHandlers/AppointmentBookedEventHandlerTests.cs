@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using CliniCore.Modules.Appointments.Core.Exceptions;
-using CliniCore.Modules.Appointments.Core.InputPorts;
 using CliniCore.Modules.Appointments.Core.Models;
+using CliniCore.Modules.Appointments.Core.OutputPorts;
 using CliniCore.Modules.Appointments.Shell.DAL;
 using CliniCore.Modules.Appointments.Shell.DAL.Entities;
 using CliniCore.Modules.Appointments.Shell.EventHandlers;

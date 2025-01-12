@@ -1,5 +1,5 @@
 ﻿using CliniCore.Modules.Appointments.Core;
-using CliniCore.Modules.Appointments.Core.InputPorts;
+using CliniCore.Modules.Appointments.Core.OutputPorts;
 using CliniCore.Modules.Appointments.Shell.DAL;
 using CliniCore.Modules.Appointments.Shell.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;

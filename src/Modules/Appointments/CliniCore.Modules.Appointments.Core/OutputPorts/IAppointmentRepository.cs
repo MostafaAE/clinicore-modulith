@@ -1,6 +1,6 @@
 ﻿using CliniCore.Modules.Appointments.Core.Models;
 
-namespace CliniCore.Modules.Appointments.Core.InputPorts;
+namespace CliniCore.Modules.Appointments.Core.OutputPorts;
 
 public interface IAppointmentRepository
 {
