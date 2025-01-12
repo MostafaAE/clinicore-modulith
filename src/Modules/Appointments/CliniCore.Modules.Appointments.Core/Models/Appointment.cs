@@ -13,9 +13,10 @@ public class Appointment
     public string PatientName { get; private set; }
     public DateTime ReservedAt { get; private set; }
     public decimal Cost { get; private set; }
+    public AppointmentStatus Status { get; private set; }
 
     private Appointment(Guid id, Guid bookingId, Guid slotId, DateTime time, Guid doctorId, string doctorName,
-        Guid patientId, string patientName, DateTime reservedAt, decimal cost) 
+        Guid patientId, string patientName, DateTime reservedAt, decimal cost, AppointmentStatus status) 
     { 
         Id = id;
 
@@ -49,19 +50,20 @@ public class Appointment
 
         ReservedAt = reservedAt;
         Cost = cost;
+        Status = status;
     }
 
     public static Appointment NewAppointment(Guid bookingId, Guid slotId, DateTime time, Guid doctorId, string doctorName,
         Guid patientId, string patientName, DateTime reservedAt, decimal cost)
     {
         return new Appointment(Guid.NewGuid(), bookingId, slotId, time, doctorId, doctorName,
-            patientId, patientName, reservedAt, cost);
+            patientId, patientName, reservedAt, cost, AppointmentStatus.Booked);
     }
 
     public static Appointment Create(Guid id, Guid bookingId, Guid slotId, DateTime time, Guid doctorId, string doctorName,
-        Guid patientId, string patientName, DateTime reservedAt, decimal cost)
+        Guid patientId, string patientName, DateTime reservedAt, decimal cost, AppointmentStatus status)
     {
         return new Appointment(id, bookingId, slotId, time, doctorId, doctorName,
-            patientId, patientName, reservedAt, cost);
+            patientId, patientName, reservedAt, cost, status);
     }
 }

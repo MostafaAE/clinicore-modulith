@@ -20,7 +20,8 @@ public class AppointmentTests
         var cost = 100.50m;
 
         // Act
-        var appointment = Appointment.NewAppointment(bookingId, slotId, time, doctorId, doctorName, patientId, patientName, reservedAt, cost);
+        var appointment = Appointment.NewAppointment(bookingId, slotId, time, doctorId, doctorName,
+            patientId, patientName, reservedAt, cost);
 
         // Assert
         appointment.Should().NotBeNull();
@@ -33,6 +34,7 @@ public class AppointmentTests
         appointment.PatientName.Should().Be(patientName);
         appointment.ReservedAt.Should().Be(reservedAt);
         appointment.Cost.Should().Be(cost);
+        appointment.Status.Should().Be(AppointmentStatus.Booked);
     }
 
     [Fact]
@@ -47,9 +49,11 @@ public class AppointmentTests
         var patientName = "Jane Doe";
         var reservedAt = DateTime.UtcNow;
         var cost = 100.50m;
+        var status = AppointmentStatus.Booked;
 
         // Act
-        Action act = () => Appointment.Create(Guid.NewGuid(), Guid.Empty, slotId, time, doctorId, doctorName, patientId, patientName, reservedAt, cost);
+        Action act = () => Appointment.Create(Guid.NewGuid(), Guid.Empty, slotId, time, doctorId, doctorName,
+            patientId, patientName, reservedAt, cost, status);
 
         // Assert
         act.Should().Throw<InvalidBookingIdException>();
@@ -67,9 +71,11 @@ public class AppointmentTests
         var patientName = "Jane Doe";
         var reservedAt = DateTime.UtcNow;
         var cost = 100.50m;
+        var status = AppointmentStatus.Booked;
 
         // Act
-        Action act = () => Appointment.Create(Guid.NewGuid(), bookingId, Guid.Empty, time, doctorId, doctorName, patientId, patientName, reservedAt, cost);
+        Action act = () => Appointment.Create(Guid.NewGuid(), bookingId, Guid.Empty, time, doctorId, doctorName,
+            patientId, patientName, reservedAt, cost, status);
 
         // Assert
         act.Should().Throw<InvalidSlotIdException>();
@@ -87,9 +93,11 @@ public class AppointmentTests
         var patientName = "Jane Doe";
         var reservedAt = DateTime.UtcNow;
         var cost = 100.50m;
+        var status = AppointmentStatus.Booked;
 
         // Act
-        Action act = () => Appointment.Create(Guid.NewGuid(), bookingId, slotId, time, Guid.Empty, doctorName, patientId, patientName, reservedAt, cost);
+        Action act = () => Appointment.Create(Guid.NewGuid(), bookingId, slotId, time, Guid.Empty, doctorName,
+            patientId, patientName, reservedAt, cost, status);
 
         // Assert
         act.Should().Throw<InvalidDoctorIdException>();
@@ -107,9 +115,11 @@ public class AppointmentTests
         var patientName = "Jane Doe";
         var reservedAt = DateTime.UtcNow;
         var cost = 100.50m;
+        var status = AppointmentStatus.Booked;
 
         // Act
-        Action act = () => Appointment.Create(Guid.NewGuid(), bookingId, slotId, time, doctorId, doctorName, Guid.Empty, patientName, reservedAt, cost);
+        Action act = () => Appointment.Create(Guid.NewGuid(), bookingId, slotId, time, doctorId, doctorName,
+            Guid.Empty, patientName, reservedAt, cost, status);
 
         // Assert
         act.Should().Throw<InvalidPatientIdException>();
@@ -129,9 +139,11 @@ public class AppointmentTests
         var patientName = "Jane Doe";
         var reservedAt = DateTime.UtcNow;
         var cost = 100.50m;
+        var status = AppointmentStatus.Booked;
 
         // Act
-        var appointment = Appointment.Create(id, bookingId, slotId, time, doctorId, doctorName, patientId, patientName, reservedAt, cost);
+        var appointment = Appointment.Create(id, bookingId, slotId, time, doctorId, doctorName,
+            patientId, patientName, reservedAt, cost, status);
 
         // Assert
         appointment.Id.Should().Be(id);

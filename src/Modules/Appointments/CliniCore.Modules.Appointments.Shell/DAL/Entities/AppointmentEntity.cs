@@ -14,6 +14,8 @@ public class AppointmentEntity
     public DateTime ReservedAt { get; set; }
     public decimal Cost { get; set; }
 
+    public AppointmentStatus Status { get; set; }
+
     public static AppointmentEntity From(Appointment appointment)
     {
         return new AppointmentEntity()
@@ -28,12 +30,13 @@ public class AppointmentEntity
             PatientName = appointment.PatientName,
             ReservedAt = appointment.ReservedAt,
             Cost = appointment.Cost,
+            Status = appointment.Status
         };
     }
 
     public Appointment ToDomain()
     {
         return Appointment.Create(Id, BookingId, SlotId, Time, DoctorId, DoctorName,
-            PatientId, PatientName, ReservedAt, Cost);
+            PatientId, PatientName, ReservedAt, Cost, Status);
     }
 }
