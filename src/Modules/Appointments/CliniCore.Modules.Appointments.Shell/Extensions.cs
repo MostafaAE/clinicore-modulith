@@ -1,4 +1,5 @@
 ﻿using CliniCore.Modules.Appointments.Core;
+using CliniCore.Modules.Appointments.Shell.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,13 @@ public static class Extensions
 {
     public static IServiceCollection AddAppointmentsModule(this IServiceCollection services, IConfiguration configuration)
     {
-       
+
+        var connectionString = configuration.GetConnectionString("Database");
+
+        services.AddDbContext<AppointmentsDbContext>(options => {
+            options.UseSqlite(connectionString);
+        });
+
         services.AddCoreLayer();
         return services;
     }
