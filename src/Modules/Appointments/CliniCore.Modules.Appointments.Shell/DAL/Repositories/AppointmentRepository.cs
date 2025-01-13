@@ -41,7 +41,7 @@ internal class AppointmentRepository : IAppointmentRepository
     {
         var appointmentEntity = await _dbContext.Appointments
             .AsNoTracking()
-            .FirstAsync(appointment => appointment.Id == id);
+            .FirstOrDefaultAsync(appointment => appointment.Id == id);
 
         var appointmentDomain = appointmentEntity?.ToDomain();
 

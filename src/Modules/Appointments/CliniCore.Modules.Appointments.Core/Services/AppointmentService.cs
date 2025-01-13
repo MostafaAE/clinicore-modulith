@@ -30,6 +30,9 @@ public class AppointmentService : IAppointmentsService
         if (appointmentModel is null)
             throw new AppointmentNotFoundException();
 
+        if(appointmentModel.Status != AppointmentStatus.Booked)
+            throw new AppointmentAlreadyCompletedOrCanceledFoundException();
+
         if (command.Status is AppointmentStatus.Completed)
         {
             appointmentModel.Complete();

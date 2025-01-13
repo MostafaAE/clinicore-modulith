@@ -61,6 +61,15 @@ namespace CliniCore.Modules.Appointments.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The appointment has been already completed or canceled..
+        /// </summary>
+        internal static string AppointmentAlreadyCompletedOrCanceled {
+            get {
+                return ResourceManager.GetString("AppointmentAlreadyCompletedOrCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appointment not found..
         /// </summary>
         internal static string AppointmentNotFound {
