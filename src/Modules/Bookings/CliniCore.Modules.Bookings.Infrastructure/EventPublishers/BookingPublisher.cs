@@ -19,6 +19,7 @@ public class BookingPublisher : IBookingPublisher
             var appointementEvent = bookingEvent as AppointmentBooked;
 
             var integrationEvent = new AppointmentBookedDto(
+                appointementEvent.BookingId,
                 appointementEvent.SlotId,
                 appointementEvent.AppointmentTime,
                 appointementEvent.DoctorId,

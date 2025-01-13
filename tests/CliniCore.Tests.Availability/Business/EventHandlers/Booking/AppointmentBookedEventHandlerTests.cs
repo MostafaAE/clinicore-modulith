@@ -10,7 +10,7 @@ using CliniCore.Tests.Shared.Utils;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CliniCore.Tests.Availability.Business.Services.EventHandlers.Booking;
+namespace CliniCore.Tests.Availability.Business.EventHandlers.Booking;
 public class AppointmentBookedEventHandlerTests : IClassFixture<CustomWebApplicationFactory>, IAsyncLifetime
 {
     private readonly CustomWebApplicationFactory _factory;

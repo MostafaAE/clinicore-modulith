@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq.Expressions;
 
 namespace CliniCore.Tests.Shared.Utils;
 
@@ -35,6 +36,15 @@ public static class TestUtils
         using var scope = factory.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<TContext>();
         return await dbContext.Set<TEntity>().FindAsync(id);
+    }
+
+    public static async Task<IEnumerable<TEntity>> GetFromDatabaseAsync<TContext, TEntity>(CustomWebApplicationFactory factory, Expression<Func<TEntity, bool>> filter)
+        where TContext : DbContext
+        where TEntity : class
+    {
+        using var scope = factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<TContext>();
+        return await dbContext.Set<TEntity>().Where(filter).ToListAsync();
     }
 
     /// <summary>

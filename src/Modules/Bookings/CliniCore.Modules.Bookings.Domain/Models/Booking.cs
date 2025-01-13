@@ -1,5 +1,4 @@
 ﻿using CliniCore.Modules.Bookings.Domain.Exceptions;
-using CliniCore.Shared.Events;
 
 namespace CliniCore.Modules.Bookings.Domain.Models;
 public class Booking
@@ -43,7 +42,7 @@ public class Booking
     {
         var booking = new Booking(Guid.NewGuid(), slotId, patientId, patientName, reservedAt);
 
-        var apppointmentBooked = new AppointmentBooked(slotId, appointmentTime, doctorId, 
+        var apppointmentBooked = new AppointmentBooked(booking.Id, slotId, appointmentTime, doctorId, 
             doctorName, patientId, patientName, reservedAt, cost);
 
         booking.AddDomainEvent(apppointmentBooked);
@@ -53,6 +52,6 @@ public class Booking
 
     public static Booking Create(Guid id, Guid slotId, Guid patientId, string patientName, DateTime reservedAt)
     {
-        return new Booking(Guid.NewGuid(), slotId, patientId, patientName, reservedAt);
+        return new Booking(id, slotId, patientId, patientName, reservedAt);
     }
 }
