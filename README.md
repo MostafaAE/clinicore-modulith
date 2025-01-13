@@ -67,7 +67,7 @@ The system follows a **modular monolithic architecture**, with each module desig
    - Core: Domain logic for managing appointments
    - Shell: External interaction
 
-![Clinicore Software Architecture Diagram](https://github.com/user-attachments/assets/7455ff7f-dc95-43ed-af05-cefff96de64b)
+![Clinicore Software Architecture Diagram](https://github.com/user-attachments/assets/c46f3bed-9aa8-4be3-8af8-31fa1ad05b21)
 
 ---
 
