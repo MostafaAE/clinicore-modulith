@@ -7,4 +7,8 @@ public interface IAppointmentRepository
     Task<Guid> AddAppointmentAsync(Appointment appointment);
 
     Task<IEnumerable<Appointment>> GetUpcomingAppointmentsAsync();
+
+    Task<Appointment?> GetAppointmentByIdAsync(Guid id);
+
+    Task<bool> UpdateAppointmentAsync(Appointment appointment);
 }

@@ -61,6 +61,15 @@ namespace CliniCore.Modules.Appointments.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appointment not found..
+        /// </summary>
+        internal static string AppointmentNotFound {
+            get {
+                return ResourceManager.GetString("AppointmentNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid booking id..
         /// </summary>
         internal static string InvalidBookingId {
@@ -93,6 +102,15 @@ namespace CliniCore.Modules.Appointments.Core.Resources {
         internal static string InvalidSlotId {
             get {
                 return ResourceManager.GetString("InvalidSlotId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid status..
+        /// </summary>
+        internal static string InvalidStatus {
+            get {
+                return ResourceManager.GetString("InvalidStatus", resourceCulture);
             }
         }
     }

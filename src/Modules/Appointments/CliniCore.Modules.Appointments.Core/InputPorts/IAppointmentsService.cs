@@ -3,5 +3,6 @@
 namespace CliniCore.Modules.Appointments.Core.InputPorts;
 public interface IAppointmentsService
 {
-    public Task<IEnumerable<AppointmentDto>> GetUpcomingAppointments();
+    public Task<IEnumerable<AppointmentDto>> GetUpcomingAppointmentsAsync();
+    Task UpdateAppointmentStatusAsync(Guid id, UpdateStatusCommand command);
 }

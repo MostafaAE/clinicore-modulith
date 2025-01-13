@@ -66,4 +66,14 @@ public class Appointment
         return new Appointment(id, bookingId, slotId, time, doctorId, doctorName,
             patientId, patientName, reservedAt, cost, status);
     }
+
+    public void Complete()
+    {
+        Status = AppointmentStatus.Completed;
+    }
+
+    public void Cancel()
+    {
+        Status = AppointmentStatus.Canceled;
+    }
 }

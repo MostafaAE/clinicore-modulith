@@ -1,4 +1,5 @@
 ﻿using CliniCore.Modules.Appointments.Core.DTO;
+using CliniCore.Modules.Appointments.Core.Exceptions;
 using CliniCore.Modules.Appointments.Core.InputPorts;
 using CliniCore.Modules.Appointments.Core.Models;
 using CliniCore.Modules.Appointments.Core.OutputPorts;
@@ -13,13 +14,32 @@ public class AppointmentService : IAppointmentsService
         _appointmentRepository = appointmentRepository;
     }
 
-    public async Task<IEnumerable<AppointmentDto>> GetUpcomingAppointments()
+    public async Task<IEnumerable<AppointmentDto>> GetUpcomingAppointmentsAsync()
     {
         var appointments = await _appointmentRepository.GetUpcomingAppointmentsAsync();
 
         var dtos = Map(appointments);
 
         return dtos;
+    }
+
+    public async Task UpdateAppointmentStatusAsync(Guid id, UpdateStatusCommand command)
+    {
+        var appointmentModel = await _appointmentRepository.GetAppointmentByIdAsync(id);
+
+        if (appointmentModel is null)
+            throw new AppointmentNotFoundException();
+
+        if (command.Status is AppointmentStatus.Completed)
+        {
+            appointmentModel.Complete();
+        }
+        else if (command.Status is AppointmentStatus.Canceled)
+        {
+            appointmentModel.Cancel();
+        }
+
+        await _appointmentRepository.UpdateAppointmentAsync(appointmentModel);
     }
 
     private IEnumerable<AppointmentDto> Map(IEnumerable<Appointment> appointments)
