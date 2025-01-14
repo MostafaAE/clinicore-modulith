@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace CliniCore.Shared.Exceptions;
-internal class ErrorMessage
+public class ErrorMessage
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Field { get; set; }
