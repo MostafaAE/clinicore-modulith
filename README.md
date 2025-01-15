@@ -6,10 +6,13 @@
    - [Appointment Confirmation](#3-appointment-confirmation)
    - [Doctor Appointment Management](#4-doctor-appointment-management)
 3. [Architecture Overview](#architecture-overview)
-4. [Testing](#testing)
+4. [How to Run the Project](#how-to-run-the-project)
+   - [Prerequisites](#prerequisites)
+   - [Steps to Run](#steps-to-run)
+6. [Testing](#testing)
    - [Running Tests](#running-tests)
    - [Coverage](#coverage)
-5. [Technologies and Tools](#technologies-and-tools)
+7. [Technologies and Tools](#technologies-and-tools)
 
 ---
 
@@ -69,6 +72,30 @@ The system follows a **modular monolithic architecture**, with each module desig
 
 ![Clinicore Software Architecture Diagram](https://github.com/user-attachments/assets/c46f3bed-9aa8-4be3-8af8-31fa1ad05b21)
 
+---
+
+## How to Run the Project
+
+### Prerequisites
+- Install the [.NET SDK](https://dotnet.microsoft.com/download) (8.0 or higher).
+  
+### Steps to Run
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/MostafaAE/clinicore-modulith
+   ```
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd .\clinicore-modulith\src\Bootstrapper\CliniCore.Bootstrapper
+   ```
+3. **Run the Application**:
+   ```bash
+   dotnet run --project CliniCore.Bootstrapper.csproj
+   ```
+4. **Access the API**:
+   ```bash
+   http://localhost:5050/swagger/index.html
+   ```
 ---
 
 ## Testing
