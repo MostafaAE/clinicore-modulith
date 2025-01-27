@@ -1,18 +1,18 @@
 ﻿using AutoFixture;
-using CliniCore.Modules.Availability.Shared.DTO;
-using CliniCore.Modules.Availability.Shared;
 using CliniCore.Modules.Bookings.Application.BookAppointment;
+using CliniCore.Modules.Bookings.Application.GetAvailableBookings;
+using CliniCore.Modules.Bookings.Application.Interfaces;
 using CliniCore.Modules.Bookings.Domain.Contracts;
 using CliniCore.Modules.Bookings.Domain.Exceptions;
-using FluentAssertions;
-using Moq;
 using CliniCore.Modules.Bookings.Domain.Models;
 using CliniCore.Shared.Time;
+using FluentAssertions;
+using Moq;
 
 namespace CliniCore.Tests.Bookings.Application.BookAppointment;
 public class AddBookingHandlerTests
 {
-    private readonly Mock<IAvailabilityModuleApi> _availabilityModuleApiMock;
+    private readonly Mock<IAvailabilityService> _availabilityServiceMock;
     private readonly Mock<IBookingRepository> _bookingRepositoryMock;
     private readonly Mock<IClock> _clockMock;
     private readonly AddBookingHandler _handler;
@@ -20,10 +20,10 @@ public class AddBookingHandlerTests
 
     public AddBookingHandlerTests()
     {
-        _availabilityModuleApiMock = new Mock<IAvailabilityModuleApi>();
+        _availabilityServiceMock = new Mock<IAvailabilityService>();
         _bookingRepositoryMock = new Mock<IBookingRepository>();
         _clockMock = new Mock<IClock>();
-        _handler = new AddBookingHandler(_bookingRepositoryMock.Object, _availabilityModuleApiMock.Object, _clockMock.Object);
+        _handler = new AddBookingHandler(_bookingRepositoryMock.Object, _availabilityServiceMock.Object, _clockMock.Object);
         _fixture = new Fixture();
     }
 
@@ -32,7 +32,7 @@ public class AddBookingHandlerTests
     {
         // Arrange
         var command = _fixture.Create<AddBooking>();
-        var slot = new SlotDto
+        var slot = new AvailableBookingDto
         {
             Id = command.SlotId,
             IsReserved = false,
@@ -42,7 +42,7 @@ public class AddBookingHandlerTests
             Cost = 200m
         };
 
-        _availabilityModuleApiMock
+        _availabilityServiceMock
             .Setup(api => api.GetSlotByIdAsync(command.SlotId))
             .ReturnsAsync(slot);
 
@@ -59,7 +59,7 @@ public class AddBookingHandlerTests
         result.Should().NotBeNull();
         result.Id.Should().Be(expectedBookingId);
 
-        _availabilityModuleApiMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
+        _availabilityServiceMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
         _bookingRepositoryMock.Verify(repo => repo.AddBooking(It.IsAny<Booking>()), Times.Once);
     }
 
@@ -68,13 +68,13 @@ public class AddBookingHandlerTests
     {
         // Arrange
         var command = _fixture.Create<AddBooking>();
-        var slot = new SlotDto
+        var slot = new AvailableBookingDto
         {
             Id = command.SlotId,
             IsReserved = true
         };
 
-        _availabilityModuleApiMock
+        _availabilityServiceMock
             .Setup(api => api.GetSlotByIdAsync(command.SlotId))
             .ReturnsAsync(slot);
 
@@ -84,7 +84,7 @@ public class AddBookingHandlerTests
         // Assert
         await act.Should().ThrowAsync<AlreadyBookedSlotException>();
 
-        _availabilityModuleApiMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
+        _availabilityServiceMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
         _bookingRepositoryMock.Verify(repo => repo.AddBooking(It.IsAny<Booking>()), Times.Never);
     }
 }

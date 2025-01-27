@@ -1,4 +1,4 @@
-﻿using CliniCore.Modules.Availability.Shared;
+﻿using CliniCore.Modules.Bookings.Application.Interfaces;
 using CliniCore.Modules.Bookings.Domain.Contracts;
 using CliniCore.Modules.Bookings.Domain.Exceptions;
 using CliniCore.Modules.Bookings.Domain.Models;
@@ -8,19 +8,19 @@ namespace CliniCore.Modules.Bookings.Application.BookAppointment;
 public class AddBookingHandler
 {
     private readonly IBookingRepository _bookingRepository;
-    private readonly IAvailabilityModuleApi _availabilityModuleApi;
+    private readonly IAvailabilityService _availabilityService;
     private readonly IClock _clock;
 
-    public AddBookingHandler(IBookingRepository bookingRepository, IAvailabilityModuleApi availabilityModuleApi, IClock clock)
+    public AddBookingHandler(IBookingRepository bookingRepository, IAvailabilityService availabilityModuleApi, IClock clock)
     {
-        _availabilityModuleApi = availabilityModuleApi;
+        _availabilityService = availabilityModuleApi;
         _clock = clock;
         _bookingRepository = bookingRepository;
     }
 
     public async Task<BookingResponse> Handle(AddBooking command)
     {
-        var slot = await _availabilityModuleApi.GetSlotByIdAsync(command.SlotId);
+        var slot = await _availabilityService.GetSlotByIdAsync(command.SlotId);
 
         if(slot.IsReserved == true)
         {

@@ -40,7 +40,7 @@ public class AppointmentsController : ControllerBase
     /// Update the status of an appointment.
     /// </summary>
     /// <remarks>
-    /// Allows updating the status of an appointment (to "Completed" or "Cancelled").
+    /// Allows updating the status of an appointment (to "Completed" or "Canceled").
     /// </remarks>
     /// <param name="id">The ID of the appointment to update.</param>
     /// <param name="request">The new status for the appointment.</param>
