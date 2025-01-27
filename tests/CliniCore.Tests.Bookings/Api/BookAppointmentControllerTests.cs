@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
 using CliniCore.Modules.Availability.Business.Exceptions;
-using CliniCore.Modules.Availability.Shared;
-using CliniCore.Modules.Availability.Shared.DTO;
 using CliniCore.Modules.Bookings.Application.BookAppointment;
+using CliniCore.Modules.Bookings.Application.GetAvailableBookings;
+using CliniCore.Modules.Bookings.Application.Interfaces;
 using CliniCore.Modules.Bookings.Infrastructure.DAL;
 using CliniCore.Modules.Bookings.Infrastructure.DAL.Entities;
 using CliniCore.Tests.Shared;
@@ -19,18 +19,18 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
     private readonly CustomWebApplicationFactory _factory;
     private readonly Fixture _fixture;
     private readonly HttpClient _httpClient;
-    private readonly Mock<IAvailabilityModuleApi> _availabilityModuleApiMock;
+    private readonly Mock<IAvailabilityService> _availabilityServiceMock;
 
     public BookAppointmentControllerTests(CustomWebApplicationFactory factory)
     {
         _factory = factory;
         _fixture = new Fixture();
-        _availabilityModuleApiMock = new Mock<IAvailabilityModuleApi>();
+        _availabilityServiceMock = new Mock<IAvailabilityService>();
         _httpClient = _factory.WithWebHostBuilder(builder =>
         {
             builder.ConfigureServices(services =>
             {
-                services.AddScoped(_ => _availabilityModuleApiMock.Object);
+                services.AddScoped(_ => _availabilityServiceMock.Object);
             });
         }).CreateClient();
     }
@@ -48,10 +48,10 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
         // Arrange
         var command = _fixture.Create<AddBooking>();
 
-        var slot = _fixture.Build<SlotDto>()
+        var slot = _fixture.Build<AvailableBookingDto>()
             .With(slot => slot.IsReserved, false).Create();
 
-        _availabilityModuleApiMock
+        _availabilityServiceMock
             .Setup(api => api.GetSlotByIdAsync(command.SlotId))
             .ReturnsAsync(slot);
 
@@ -65,7 +65,7 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
 
         var booking = await TestUtils.GetFromDatabaseAsync<BookingDbContext, BookingEntity>(_factory, responseData.Id);
 
-        _availabilityModuleApiMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
+        _availabilityServiceMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
         booking.Should().NotBeNull();
     }
 
@@ -74,10 +74,10 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
     {
         // Arrange
         var command = _fixture.Create<AddBooking>();
-        var slot = _fixture.Build<SlotDto>()
+        var slot = _fixture.Build<AvailableBookingDto>()
             .With(slot => slot.IsReserved, true).Create();
 
-        _availabilityModuleApiMock
+        _availabilityServiceMock
             .Setup(api => api.GetSlotByIdAsync(command.SlotId))
             .ReturnsAsync(slot);
 
@@ -87,7 +87,7 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        _availabilityModuleApiMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
+        _availabilityServiceMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
         // Arrange
         var command = _fixture.Create<AddBooking>();
 
-        _availabilityModuleApiMock
+        _availabilityServiceMock
             .Setup(api => api.GetSlotByIdAsync(command.SlotId))
             .ThrowsAsync(new SlotNotFoundException());
 
@@ -106,6 +106,6 @@ public class BookAppointmentControllerTests : IClassFixture<CustomWebApplication
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
-        _availabilityModuleApiMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
+        _availabilityServiceMock.Verify(api => api.GetSlotByIdAsync(command.SlotId), Times.Once);
     }
 }

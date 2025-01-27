@@ -1,37 +1,19 @@
-﻿using CliniCore.Modules.Availability.Shared;
-using CliniCore.Modules.Availability.Shared.DTO;
+﻿using CliniCore.Modules.Bookings.Application.Interfaces;
 
 namespace CliniCore.Modules.Bookings.Application.GetAvailableBookings;
 public class GetAvailableBookingsHandler
 {
-    private readonly IAvailabilityModuleApi _availabilityModuleApi;
+    private readonly IAvailabilityService _availabilityService;
 
-    public GetAvailableBookingsHandler(IAvailabilityModuleApi availabilityModuleApi)
+    public GetAvailableBookingsHandler(IAvailabilityService availabilityModuleApi)
     {
-        _availabilityModuleApi = availabilityModuleApi;
+        _availabilityService = availabilityModuleApi;
     }
 
     public async Task<IEnumerable<AvailableBookingDto>> Handle()
     {
-        var slots = await _availabilityModuleApi.GetAvailableSlotsAsync();
-
-        var availableBookings = Map(slots);
+        var availableBookings = await _availabilityService.GetAvailableSlotsAsync();
 
         return availableBookings;
-    }
-
-    private IEnumerable<AvailableBookingDto> Map(IEnumerable<SlotDto> slotDtos)
-    {
-        var availableBookingsDto = slotDtos.Select(slotDto => new AvailableBookingDto()
-        {
-            Id = slotDto.Id,
-            Cost = slotDto.Cost,
-            DoctorId = slotDto.DoctorId,
-            DoctorName = slotDto.DoctorName,
-            IsReserved = slotDto.IsReserved,
-            Time = slotDto.Time,
-        });
-
-        return availableBookingsDto;
     }
 }

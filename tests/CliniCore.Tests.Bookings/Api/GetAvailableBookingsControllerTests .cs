@@ -1,14 +1,12 @@
 ﻿using AutoFixture;
-using CliniCore.Modules.Availability.Shared;
-using CliniCore.Modules.Availability.Shared.DTO;
 using CliniCore.Modules.Bookings.Application.GetAvailableBookings;
+using CliniCore.Modules.Bookings.Application.Interfaces;
 using CliniCore.Tests.Shared;
 using CliniCore.Tests.Shared.Utils;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace CliniCore.Tests.Bookings.Api;
@@ -16,7 +14,7 @@ public class GetAvailableBookingsControllerTests : IClassFixture<CustomWebApplic
 {
     private readonly CustomWebApplicationFactory _factory;
     private readonly IFixture _fixture;
-    private readonly Mock<IAvailabilityModuleApi> _availabilityModuleApiMock;
+    private readonly Mock<IAvailabilityService> _availabilityServiceMock;
     private readonly HttpClient _httpClient;
 
 
@@ -24,12 +22,12 @@ public class GetAvailableBookingsControllerTests : IClassFixture<CustomWebApplic
     {
         _factory = factory;
         _fixture = new Fixture();
-        _availabilityModuleApiMock = new Mock<IAvailabilityModuleApi>();
+        _availabilityServiceMock = new Mock<IAvailabilityService>();
         _httpClient = _factory.WithWebHostBuilder(builder =>
         {
             builder.ConfigureServices(services =>
             {
-                services.AddScoped(_ => _availabilityModuleApiMock.Object);
+                services.AddScoped(_ => _availabilityServiceMock.Object);
             });
         }).CreateClient();
     }
@@ -44,8 +42,8 @@ public class GetAvailableBookingsControllerTests : IClassFixture<CustomWebApplic
     public async Task GetAvailableBookings_ShouldReturnOkWithAvailableBookings()
     {
         // Arrange
-        var availableSlots = _fixture.CreateMany<SlotDto>(5).ToList();
-        _availabilityModuleApiMock
+        var availableSlots = _fixture.CreateMany<AvailableBookingDto>(5).ToList();
+        _availabilityServiceMock
             .Setup(api => api.GetAvailableSlotsAsync())
             .ReturnsAsync(availableSlots);
 
@@ -63,7 +61,7 @@ public class GetAvailableBookingsControllerTests : IClassFixture<CustomWebApplic
     public async Task GetAvailableBookings_ShouldReturnInternalServerError_WhenExternalCallFails()
     {
         // Arrange
-        _availabilityModuleApiMock
+        _availabilityServiceMock
             .Setup(api => api.GetAvailableSlotsAsync())
             .ThrowsAsync(new Exception("Service unavailable"));
 
